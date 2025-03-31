@@ -1,5 +1,5 @@
 <div align="center">
-<h1> Simple Library Management </h1>
+<h1> Library Information system </h1>
 </div>
 
 A simple library management project is an **Open Source Website** built using **HTML, CSS, JavaScript** and **Bootstrap** and is **easy to use** and helps learners understand the **basic concept of JS**. In this project, the user has a provision to add book details like book name, author name, book URL, ISBN, edition, publication date, the status of reading the book, and book genre through the web page. In addition, the user has a provision to search for the available books in the library by the book name, author name, or type. If book details are present in the LocalStorage, the search details are displayed on the web page. Users also have a provision to delete a specific book or all books. The user can choose his favorites and edit any book details very quickly.
