@@ -26,13 +26,13 @@ libraryForm.addEventListener("submit", (e) => {
   const isValidUrl = (urlString) => {
     var urlPattern = new RegExp(
       "^(https?:\\/\\/)?" + // validate protocol
-      "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
-      "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
-      "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
-      "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
-      "(\\#[-a-z\\d_]*)?$",
+        "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // validate domain name
+        "((\\d{1,3}\\.){3}\\d{1,3}))" + // validate OR ip (v4) address
+        "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // validate port and path
+        "(\\?[;&a-z\\d%_.~+=-]*)?" + // validate query string
+        "(\\#[-a-z\\d_]*)?$",
       "i"
-    ); // validate fragment locator
+    );
     return !!urlPattern.test(urlString);
   };
   if (!isValidUrl(url.value)) {
@@ -136,65 +136,62 @@ libraryForm.addEventListener("submit", (e) => {
   //   });
   // }
 
+  let shelf = localStorage.getItem("shelfOfBooks");
 
+  let objOfBook; //object which stores books
+  let alreadyAdded = false;
 
-let shelf = localStorage.getItem("shelfOfBooks");
-
-let objOfBook; //object which stores books
-let alreadyAdded = false;
-
-// Check if the book is already in the library
-if (shelf == null) {
-  objOfBook = [];
-} else {
-  //We might have multiple books
-  objOfBook = JSON.parse(shelf); //By using JSON we convert it into Object
-
-  // Function to search for a book by name
-  function searchBookByName(bookName) {
-    return objOfBook.find((bookObj) => bookObj.book === bookName);
-  }
-
-  objOfBook.every((bookObj) => {
-    if (author === "") author = "Unknown";
-    let curBook = name === bookObj.book;
-    let curAuthor = author === bookObj.bookauthor;
-    let curBookType = type === bookObj.bookType;
-
-    if (curBook && curAuthor && curBookType) {
-      console.log("already added!");
-      alreadyAdded = true;
-      return false;
-    }
-    return true;
-  });
-}
-
-const searchButton = document.getElementById("searchButton");
-searchButton.addEventListener("click", searchBook);
-
-// Function to handle the search when the user clicks the "Search" button
-function searchBook() {
-  let searchInput = document.getElementById("searchText");
-  alert(searchInput)
-  let enteredBookName = searchInput.value.trim();
-
-  if (enteredBookName === "") {
-    alert("Please enter a book name.");
-    return;
-  }
-
-  let foundBook = searchBookByName(enteredBookName);
-
-  if (foundBook) {
-    // Book with the entered name exists, show an alert
-    alert(`The book "${enteredBookName}" is already in the library.`);
+  // Check if the book is already in the library
+  if (shelf == null) {
+    objOfBook = [];
   } else {
-    // Book with the entered name doesn't exist
-    alert(`The book "${enteredBookName}" was not found in the library.`);
-  }
-}
+    //We might have multiple books
+    objOfBook = JSON.parse(shelf); //By using JSON we convert it into Object
 
+    // Function to search for a book by name
+    function searchBookByName(bookName) {
+      return objOfBook.find((bookObj) => bookObj.book === bookName);
+    }
+
+    objOfBook.every((bookObj) => {
+      if (author === "") author = "Unknown";
+      let curBook = name === bookObj.book;
+      let curAuthor = author === bookObj.bookauthor;
+      let curBookType = type === bookObj.bookType;
+
+      if (curBook && curAuthor && curBookType) {
+        console.log("already added!");
+        alreadyAdded = true;
+        return false;
+      }
+      return true;
+    });
+  }
+
+  const searchButton = document.getElementById("searchButton");
+  searchButton.addEventListener("click", searchBook);
+
+  // Function to handle the search when the user clicks the "Search" button
+  function searchBook() {
+    let searchInput = document.getElementById("searchText");
+    alert(searchInput);
+    let enteredBookName = searchInput.value.trim();
+
+    if (enteredBookName === "") {
+      alert("Please enter a book name.");
+      return;
+    }
+
+    let foundBook = searchBookByName(enteredBookName);
+
+    if (foundBook) {
+      // Book with the entered name exists, show an alert
+      alert(`The book "${enteredBookName}" is already in the library.`);
+    } else {
+      // Book with the entered name doesn't exist
+      alert(`The book "${enteredBookName}" was not found in the library.`);
+    }
+  }
 
   if (alreadyAdded === true) {
     alreadyAddedMessage();
@@ -299,33 +296,36 @@ function displayBooks() {
       html += `
            <tr class="rows">
            <th scope="row">1</th>
-           <td class="name"><a class="bookurl" href=${books.bookurl}> ${books.book
-        } </a></td>
+           <td class="name"><a class="bookurl" href=${books.bookurl}> ${
+        books.book
+      } </a></td>
            <td class="author">${books.bookauthor}</td>
            <td class="type">${books.bookType}</td>
            <td class="isbn">${books.bookisbn}</td>
            <td class="edition">${books.bookedition}</td>
            <td class="publicationdate">${books.bookpublication}</td>
-           <td class="type">${books.readStatus
-          ? `<label class="switch">
+           <td class="type">${
+             books.readStatus
+               ? `<label class="switch">
                   <input type="checkbox" checked disabled>
                   <span class="slider round"></span>
             </label>`
-          : `<label class="switch">
+               : `<label class="switch">
                   <input type="checkbox" disabled>
                   <span class="slider round"></span>
             </label>`
-        }</td>
-           <td class="fav">${books.favorite
-          ? `<label class="switch">
+           }</td>
+           <td class="fav">${
+             books.favorite
+               ? `<label class="switch">
                         <input type="checkbox" checked disabled>
                         <span class="slider round"></span>
                   </label>`
-          : `<label class="switch">
+               : `<label class="switch">
                         <input type="checkbox" disabled>
                         <span class="slider round"></span>
                   </label>`
-        }</td>
+           }</td>
            <td class="icon"><i class="fa fa-times" aria-hidden="true" onclick="removeBook(${index})"></i></td>
            <td class="icon"><i class="fa fa-edit" aria-hidden="true" onclick="editBook(${index})"></i></td>
            </tr>
@@ -334,33 +334,36 @@ function displayBooks() {
       html += `
            <tr class="rows">
            <th scope="row">${index + 1}</th>
-           <td class="name"><a class="bookurl" href=${books.bookurl}> ${books.book
-        } </a></td>
+           <td class="name"><a class="bookurl" href=${books.bookurl}> ${
+        books.book
+      } </a></td>
            <td class="author">${books.bookauthor}</td>
            <td class="type">${books.bookType}</td>
            <td class="isbn">${books.bookisbn}</td>
            <td class="edition">${books.bookedition}</td>
            <td class="publicationdate">${books.bookpublication}</td>
-           <td class="type">${books.readStatus
-          ? `<label class="switch">
+           <td class="type">${
+             books.readStatus
+               ? `<label class="switch">
                       <input type="checkbox" checked disabled>
                       <span class="slider round"></span>
                 </label>`
-          : `<label class="switch">
+               : `<label class="switch">
                       <input type="checkbox" disabled>
                       <span class="slider round"></span>
                 </label>`
-        }</td>
-           <td class="fav">${books.favorite
-          ? `<label class="switch">
+           }</td>
+           <td class="fav">${
+             books.favorite
+               ? `<label class="switch">
                         <input type="checkbox" checked disabled>
                         <span class="slider round"></span>
                   </label>`
-          : `<label class="switch">
+               : `<label class="switch">
                         <input type="checkbox" disabled>
                         <span class="slider round"></span>
                   </label>`
-        }</td>
+           }</td>
             <td class="icon"><i class="fa fa-times" aria-hidden="true" onclick="removeBook(${index})"></i></td>
            <td class="icon"><i class="fa fa-edit" aria-hidden="true" onclick="editBook(${index})"></i></td>
            </tr>
@@ -590,8 +593,9 @@ function UpdateBook() {
 
 const showNumberOfBooks = () => {
   const getBookNumber = parseInt(localStorage.getItem("getBookNumber"));
-  document.getElementById("books").innerHTML = `No. of books: ${getBookNumber || 0
-    }`;
+  document.getElementById("books").innerHTML = `No. of books: ${
+    getBookNumber || 0
+  }`;
 };
 
 // Filter books based on selected attributes from dropdown
@@ -652,8 +656,9 @@ function filterBooks() {
         bookAttr = "type";
         break;
     }
-    emptyMsg.innerHTML = `No book ${bookAttr !== "" ? "with" : ""
-      } ${bookAttr} "${searchNote.value}" found`;
+    emptyMsg.innerHTML = `No book ${
+      bookAttr !== "" ? "with" : ""
+    } ${bookAttr} "${searchNote.value}" found`;
   }
 
   // ? Does the number of books depends on the search results?
@@ -694,8 +699,7 @@ icon.onclick = () => {
     for (let i = 0; i < tables.length; i++) {
       tables[i].style.color = "white";
     }
-  }
-  else {
+  } else {
     icon.innerHTML = `<i class='fas fa-moon'></i>`;
     head1.style.color = "black";
     head2.style.color = "black";
@@ -704,7 +708,7 @@ icon.onclick = () => {
     }
   }
   console.log(document.body.classList);
-}
+};
 var acc = document.getElementsByClassName("accordion");
 var i;
 var len = acc.length;
