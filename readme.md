@@ -83,35 +83,3 @@ https://user-images.githubusercontent.com/53844369/195153604-9a5adf2d-67be-4fc2-
 # Code Of Conduct 📜
 
 To maintain a safe and inclusive space for everyone to learn and grow, contributors are advised to follow the [Code of Conduct](https://github.com/samipak458/Simple-Library-Managment/blob/main/CODE_OF_CONDUCT.md).
-
-# Contribution is fun! ✌🏼
-
-If you have any feedback or suggestions please reach out to me.
-
-In order to make a hassle-free environment, I implore you all (while contributing) to follow the instructions [Contributing Guidelines](https://github.com/samipak458/Simple-Library-Managment/blob/main/CONTRIBUTING.md)!
-
-You can create a <a href="https://github.com/samipak458/Simple-Library-Managment/issues">issue</a> and mention there , which new features or extension can make this Project more good.
-
-<!-- ------------------------------------------------------------------------------------------------------------------------------------------------------------------ -->
-
-<br>
-  
-<br>
-
-<p align="right"><a href="#top"><img src="https://img.shields.io/badge/-Back%20to%20Top-red?style=for-the-badge" /></a></p>
-
-<div align="center">
-
-### Show some ❤️ by starring⭐ this awesome Repository!
-
-</div>
-  
-<br>
-
-<h1 align=center> OUR VALUABLE CONTRIBUTORS✨ </h1>
-<p align="center">
-  
-	
-<a href="https://github.com/samipak458/Simple-Library-Managment/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=samipak458/Simple-Library-Managment" />
-</a>
